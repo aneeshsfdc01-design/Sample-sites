@@ -3,55 +3,52 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Merrell</title>
+    <title>Chat Test | Merrell</title>
 
     <style>
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-      }
-      body {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: Arial, Helvetica, sans-serif;
-        color: #111;
-      }
-      .center {
-        text-align: center;
-      }
-      .brand {
-        font-size: 24px;
-        font-weight: 600;
-        margin-bottom: 6px;
-      }
-      .url {
-        font-size: 14px;
-        color: #333;
-      }
+      html, body { height: 100%; margin: 0; display: flex; align-items: center; justify-content: center; font-family: sans-serif; background-color: #f4f4f4; }
+      .center { text-align: center; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+      .brand { font-size: 24px; font-weight: 600; color: #e65100; } /* Merrell Orange-ish */
+      .status-box { margin-top: 20px; font-size: 12px; color: #666; border-top: 1px solid #eee; pt: 10px; }
+      #api-status { font-weight: bold; color: red; }
     </style>
   </head>
 
   <body>
     <div class="center">
-      <div class="brand">Merrell</div>
-      <div class="url">https://www.merrell.com/US/en/home</div>
+      <div class="brand">Merrell Test Page</div>
+      <div class="url">Messaging for Web Pre-Chat Test</div>
+      
+      <div class="status-box">
+        API Status: <span id="api-status">Waiting for event...</span>
+      </div>
     </div>
 
     <script type="text/javascript">
+      /**
+       * 1. Define the handler first.
+       * We want to make sure the listener is active BEFORE the script loads/inits.
+       */
+      window.addEventListener("onEmbeddedMessagingReady", () => {
+        console.log("Chat API Ready! Setting hidden pre-chat fields...");
+        
+        // Update UI for visual confirmation
+        document.getElementById('api-status').innerText = "Ready & Data Sent";
+        document.getElementById('api-status').style.color = "green";
+
+        try {
+          // Send the hidden data
+          embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
+            "site": "Merrell"
+          });
+          console.log("Hidden fields set: { site: 'Merrell' }");
+        } catch (e) {
+          console.error("Failed to set hidden fields:", e);
+        }
+      });
+
       function initEmbeddedMessaging() {
         try {
-          // Wait until the Enhanced Web Chat API is ready.
-          window.addEventListener("onEmbeddedMessagingReady", () => {
-            console.log("Received the onEmbeddedMessagingReady event…");
-
-            // Send data to Salesforce
-            embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
-              site: "Saucony"
-            });
-          });
-
           embeddedservice_bootstrap.settings.language = "en_US";
 
           embeddedservice_bootstrap.init(
@@ -59,12 +56,12 @@
             "ACC_Service_Agent_Web_1",
             "https://wolverineworldwide--secondfull.sandbox.my.site.com/ESWACCServiceAgentWeb1775568321054",
             {
-              scrt2URL:
-                "https://wolverineworldwide--secondfull.sandbox.my.salesforce-scrt.com"
+              scrt2URL: "https://wolverineworldwide--secondfull.sandbox.my.salesforce-scrt.com"
             }
           );
         } catch (err) {
-          console.error("Error loading Embedded Messaging: ", err);
+          console.error("Error initializing: ", err);
+          document.getElementById('api-status').innerText = "Error - check console";
         }
       }
     </script>
