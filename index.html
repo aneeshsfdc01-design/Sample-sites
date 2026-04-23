@@ -40,7 +40,12 @@
           // Send the hidden data
           embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
             "FirstName": "Test",
-            "Brand" :"SB"
+            "Brand" :"SB",
+            "EndUserLanguage" : "en",
+            "LastName" : "Last Name",
+            "Email" : "abc@gmail.com",
+            "Region" : "US",
+            "Channel" : "Chat"
           });
           console.log("Hidden fields set: { site: 'Test' }");
         } catch (e) {
