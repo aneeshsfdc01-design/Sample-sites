@@ -43,7 +43,7 @@
             "Brand" :"merrell_us",
             "EndUserLanguage" : "en",
             "LastName" : "co",
-            "Email" : "kavitha.nagaraj@brillio.com",
+            "Email" : "berfin.poyraz99@ro.osf-global.com",
             "Region" : "US",
             "Channel" : "Chat"
           });
@@ -55,16 +55,16 @@
 
       function initEmbeddedMessaging() {
         try {
-          embeddedservice_bootstrap.settings.language = "en_US";
+        embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
 
-          embeddedservice_bootstrap.init(
-            "00D2i0000000sVs",
-            "ACC_Service_Agent_Web_1",
-            "https://wolverineworldwide--secondfull.sandbox.my.site.com/ESWACCServiceAgentWeb1775568321054",
-            {
-              scrt2URL: "https://wolverineworldwide--secondfull.sandbox.my.salesforce-scrt.com"
-            }
-          );
+			embeddedservice_bootstrap.init(
+				'00D2i0000000sVs',
+				'ACC_SB_Enhanced_Chat_Deployment',
+				'https://wolverineworldwide--secondfull.sandbox.my.site.com/ESWACCSBWebChatChanne1777013267138',
+				{
+					scrt2URL: 'https://wolverineworldwide--secondfull.sandbox.my.salesforce-scrt.com'
+				}
+			);
         } catch (err) {
           console.error("Error initializing: ", err);
           document.getElementById('api-status').innerText = "Error - check console";
