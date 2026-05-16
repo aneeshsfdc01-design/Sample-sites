@@ -8,8 +8,8 @@
     <style>
       html, body { height: 100%; margin: 0; display: flex; align-items: center; justify-content: center; font-family: sans-serif; background-color: #f4f4f4; }
       .center { text-align: center; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-      .brand { font-size: 24px; font-weight: 600; color: #e65100; } /* Merrell Orange-ish */
-      .status-box { margin-top: 20px; font-size: 12px; color: #666; border-top: 1px solid #eee; pt: 10px; }
+      .brand { font-size: 24px; font-weight: 600; color: #e65100; }
+      .status-box { margin-top: 20px; font-size: 12px; color: #666; border-top: 1px solid #eee; padding-top: 10px; }
       #api-status { font-weight: bold; color: red; }
     </style>
   </head>
@@ -18,36 +18,30 @@
     <div class="center">
       <div class="brand">Merrell Test Page</div>
       <div class="url">Messaging for Web Pre-Chat Test</div>
-      
+
       <div class="status-box">
         API Status: <span id="api-status">Waiting for event...</span>
       </div>
     </div>
 
     <script type="text/javascript">
-      /**
-       * 1. Define the handler first.
-       * We want to make sure the listener is active BEFORE the script loads/inits.
-       */
       window.addEventListener("onEmbeddedMessagingReady", () => {
         console.log("Chat API Ready! Setting hidden pre-chat fields...");
-        
-        // Update UI for visual confirmation
+
         document.getElementById('api-status').innerText = "Ready & Data Sent";
         document.getElementById('api-status').style.color = "green";
 
         try {
-          // Send the hidden data
           embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
             "FirstName": "Emil",
-            "Brand" :"SB",
-            "EndUserLanguage" : "en",
-            "LastName" : "Nenov",
-            "Email" : "emil.nenov@gmail.com",
-            "Region" : "US",
-            "Channel" : "Chat"
+            "Brand": "SB",
+            "EndUserLanguage": "en",
+            "LastName": "Nenov",
+            "Email": "emil.nenov@gmail.com",
+            "Region": "US",
+            "Channel": "Chat"
           });
-          console.log("Hidden fields set: { site: 'Test' }");
+          console.log("Hidden fields set successfully.");
         } catch (e) {
           console.error("Failed to set hidden fields:", e);
         }
@@ -55,22 +49,18 @@
 
       function initEmbeddedMessaging() {
         try {
-     embeddedservice_bootstrap.settings.language = 'en_US'; // For example, 
+          embeddedservice_bootstrap.settings.language = 'en_US';
 
-			embeddedservice_bootstrap.init(
-				'00D2i0000000sVs',
-				'ACC_Footwear_Enhanced_Chat_Deployment',
-				'https://wolverineworldwide--secondfull.sandbox.my.site.com/ESWACCFootwearWebChat1777458134796',
-				{
-					scrt2URL: 'https://wolverineworldwide--secondfull.sandbox.my.salesforce-scrt.com'
-				}
-			);
-		} catch (err) {
-			console.error('Error loading Embedded Messaging: ', err);
-		}
-	};
+          embeddedservice_bootstrap.init(
+            '00D2i0000000sVs',
+            'ACC_Footwear_Enhanced_Chat_Deployment',
+            'https://wolverineworldwide--secondfull.sandbox.my.site.com/ESWACCFootwearWebChat1777458134796',
+            {
+              scrt2URL: 'https://wolverineworldwide--secondfull.sandbox.my.salesforce-scrt.com'
+            }
+          );
         } catch (err) {
-          console.error("Error initializing: ", err);
+          console.error('Error loading Embedded Messaging: ', err);
           document.getElementById('api-status').innerText = "Error - check console";
         }
       }
